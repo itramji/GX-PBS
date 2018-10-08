@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.BoardViewFragment">
+
+    <RadioButton
+        android:id="@+id/e3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E3"
+        app:layout_constraintEnd_toStartOf="@+id/e4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e2"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E5"
+        app:layout_constraintEnd_toStartOf="@+id/e6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e4"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E7"
+        app:layout_constraintEnd_toStartOf="@+id/e8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e6"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e7"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E6"
+        app:layout_constraintEnd_toStartOf="@+id/e7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e5"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:text=" E4"
+        app:layout_constraintEnd_toStartOf="@+id/e5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e3"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/e1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:button="@drawable/intercom_selector"
+        android:text=" E1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/e2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/e2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/intercom_selector"
+        android:checked="false"
+        android:text=" E2"
+        app:layout_constraintEnd_toStartOf="@+id/e3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/e1"
+        app:layout_constraintTop_toTopOf="@+id/e1" />
+
+    <RadioButton
+        android:id="@+id/trunk1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:button="@drawable/trunk_selector"
+        android:text=" Trunk1"
+        app:layout_constraintEnd_toStartOf="@+id/trunk2"
+        app:layout_constraintTop_toTopOf="@+id/trunk2" />
+
+    <RadioButton
+        android:id="@+id/trunk2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:button="@drawable/trunk_selector"
+        android:text=" Trunk2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/e4" />
+
+    <RadioButton
+        android:id="@+id/trunk3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:button="@drawable/trunk_selector"
+        android:text=" Trunk3"
+        app:layout_constraintStart_toEndOf="@+id/trunk2"
+        app:layout_constraintTop_toTopOf="@+id/trunk2" />
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Update"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
