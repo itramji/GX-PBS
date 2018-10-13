@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_trunk_items.view.*
  * specified [OnTrunkItemClickListener].
  */
 class TruckAdapter(
-        private val mValues: List<DummyItem>,
+        private val mValues: List<String>,
         private val mListener: OnTrunkItemClickListener?)
     : RecyclerView.Adapter<TruckAdapter.ViewHolder>() {
 
@@ -28,8 +28,8 @@ class TruckAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
-            mListener?.onTrunkSelect(DummyContent.ITEM_MAP[item.id] as ArrayList<DummyContent.DummyChildItem>)
+            val item = v.tag as String
+            mListener?.onTrunkSelect(item, DummyContent.ITEM_MAP[item] as ArrayList<DummyContent.DummyItem>)
         }
     }
 
@@ -41,10 +41,7 @@ class TruckAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mNameView.text = item.content
-        holder.mDetailView.text = item.details
-        holder.mBgLayout.background = if(item.isActive) holder.itemView.context.getDrawable(R.drawable.trunk_active_bg) else null
+        holder.mIdView.text = item
 
         with(holder.mView) {
             tag = item
@@ -55,9 +52,6 @@ class TruckAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.trunk_id
-        val mNameView: TextView = mView.provider_name
-        val mDetailView: TextView = mView.detail_view
-        val mBgLayout: ImageView = mView.imageView
+        val mIdView: TextView = mView.parentId
     }
 }

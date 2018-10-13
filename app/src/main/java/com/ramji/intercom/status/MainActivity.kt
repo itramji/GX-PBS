@@ -2,6 +2,7 @@ package com.ramji.intercom.status
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ramji.intercom.status.adapter.ScreenSlidePagerAdapter
@@ -14,6 +15,15 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             R.id.navigation_home -> {
                 title = getString(R.string.title_home)
                 view_pager.currentItem = 0
+                if (view_pager.adapter!=null) {
+                    var  currentFragment : Fragment = (view_pager.adapter as ScreenSlidePagerAdapter).getCurrentItem(0);
+                    if(currentFragment!=null) {
+                        val childFragmentManager = currentFragment.childFragmentManager
+                        if (childFragmentManager!=null && childFragmentManager.backStackEntryCount > 0) {
+                            childFragmentManager.popBackStack()
+                        }
+                    }
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -60,6 +70,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             val childFragmentManager = (view_pager.adapter as ScreenSlidePagerAdapter).getCurrentItem(view_pager.currentItem).childFragmentManager
             if (childFragmentManager.backStackEntryCount > 0) {
                 childFragmentManager.popBackStack()
+                title = "Home"
                 return
             }
         }

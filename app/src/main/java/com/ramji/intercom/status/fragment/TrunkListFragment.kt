@@ -12,6 +12,7 @@ import com.ramji.intercom.status.listener.OnTrunkItemClickListener
 import com.ramji.intercom.status.R
 import com.ramji.intercom.status.adapter.TruckAdapter
 import com.ramji.intercom.status.dummy.DummyContent
+import kotlinx.android.synthetic.main.fragment_intercom_items.*
 import kotlinx.android.synthetic.main.fragment_trunk.view.*
 
 /**
@@ -36,8 +37,9 @@ class TrunkListFragment : Fragment(), OnTrunkItemClickListener {
         return view
     }
 
-    override fun onTrunkSelect(list: ArrayList<DummyContent.DummyChildItem>) {
+    override fun onTrunkSelect(title: String,list: ArrayList<DummyContent.DummyItem>) {
         childFragmentManager.beginTransaction().replace(R.id.child_container, IntercomListFragment.newInstance(list)).addToBackStack(IntercomListFragment.javaClass.simpleName).commit()
+        requireActivity().title = title
     }
 
 }

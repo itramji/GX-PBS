@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ramji.intercom.status.R
@@ -31,6 +33,11 @@ class SettingsFragment : Fragment() {
                 return false
             }
         })
+
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("pbx", "Gx 206").apply()
+
+        selector.setOnCheckedChangeListener { group, checkedId ->
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("pbx", selector.findViewById<RadioButton>(checkedId).text.toString()).apply() }
 
         mobile_number.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {

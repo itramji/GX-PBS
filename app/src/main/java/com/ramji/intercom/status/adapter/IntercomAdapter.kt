@@ -23,18 +23,9 @@ import kotlinx.android.synthetic.main.fragment_trunk_items.view.*
  * specified [OnTrunkItemClickListener].
  */
 class IntercomAdapter(
-        private val mValues: List<DummyContent.DummyChildItem>,
-        private val mListener: OnIntercomClickLisetner?)
+        private val mValues: List<DummyItem>)
     : RecyclerView.Adapter<IntercomAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
-
-    init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyContent.DummyChildItem
-            mListener?.onIntercomSelect(item)
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -43,20 +34,14 @@ class IntercomAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mBgLayout.background = if(item.isActive) holder.itemView.context.getDrawable(R.drawable.intercom_active_bg) else null
-
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
-        }
+        holder.mTitle.text = mValues[position].title
+        holder.mValue.text = mValues[position].value
     }
 
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.intercom_id
-        val mBgLayout: ImageView = mView.imageView2
+        val mTitle: TextView = mView.title
+        val mValue: TextView = mView.value
     }
 }

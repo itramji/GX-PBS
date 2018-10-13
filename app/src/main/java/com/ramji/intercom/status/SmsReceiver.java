@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -28,13 +29,26 @@ public class SmsReceiver extends BroadcastReceiver {
                         msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                     }
                     if (Objects.requireNonNull(msgs[i].getOriginatingAddress()).contains(PreferenceManager.getDefaultSharedPreferences(context).getString("MobileNumber", "9894008739"))) {
-                        if (msgs[i].getMessageBody().startsWith("%") && msgs[i].getMessageBody().endsWith("$") && msgs[i].getMessageBody().length() > 12) {
-                            PreferenceManager.getDefaultSharedPreferences(context).edit().putString("message", msgs[i].getMessageBody()).apply();
-                            break;
+                        if (msgs[i].getMessageBody().startsWith("%") && msgs[i].getMessageBody().endsWith("$")) {
+                            boolean isModelOneSelected = PreferenceManager.getDefaultSharedPreferences(context).getString("pbx", "Gx 206").equals("Gx 206");
+                            if ((isModelOneSelected && msgs[i].getMessageBody().length() == 10) || (!isModelOneSelected && msgs[i].getMessageBody().length() == 13)) {
+                                PreferenceManager.getDefaultSharedPreferences(context).edit().putString(isModelOneSelected?"GX206":"GX308", msgs[i].getMessageBody()).apply();
+                                break;
+                            }else{
+                                showErrorToast(context,"Sms received with unknown format");
+                            }
+                        }else {
+                            showErrorToast(context,"Sms received with unknown format");
                         }
+                    }else{
+                        showErrorToast(context,"Please check mobile number");
                     }
                 }
             }
         }
+    }
+
+    private void showErrorToast(Context context, String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }
