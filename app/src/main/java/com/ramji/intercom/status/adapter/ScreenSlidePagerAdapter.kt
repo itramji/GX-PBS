@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.ramji.intercom.status.fragment.BoardFragment
 import com.ramji.intercom.status.fragment.BoardViewFragment
 import com.ramji.intercom.status.fragment.SettingsFragment
 import com.ramji.intercom.status.fragment.TrunkListFragment
@@ -20,14 +21,14 @@ internal class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePager
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> TrunkListFragment()
-            1 -> BoardViewFragment()
+          //  0 -> TrunkListFragment()
+            0 -> BoardFragment()
             else -> SettingsFragment()
         }
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 
     // Register the fragment when the item is instantiated

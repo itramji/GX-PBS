@@ -11,19 +11,19 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+           /* R.id.navigation_home -> {
                 title = getString(R.string.title_home)
                 view_pager.currentItem = 0
                 return@OnNavigationItemSelectedListener true
-            }
+            }*/
             R.id.navigation_dashboard -> {
                 title = "BoardView"
-                view_pager.currentItem = 1
+                view_pager.setCurrentItem(0, false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_settings -> {
                 title = getString(R.string.title_settings)
-                view_pager.currentItem = 2
+                view_pager.setCurrentItem(1, false)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -49,20 +49,20 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     override fun onPageSelected(position: Int) {
         navigation.selectedItemId = when(position){
-            0-> R.id.navigation_home
-            1-> R.id.navigation_dashboard
+            //0-> R.id.navigation_home
+            0-> R.id.navigation_dashboard
             else -> R.id.navigation_settings
         }
     }
 
     override fun onBackPressed() {
-        if (view_pager.currentItem == 0) {
+       /* if (view_pager.currentItem == 0) {
             val childFragmentManager = (view_pager.adapter as ScreenSlidePagerAdapter).getCurrentItem(view_pager.currentItem).childFragmentManager
             if (childFragmentManager.backStackEntryCount > 0) {
                 childFragmentManager.popBackStack()
                 return
             }
-        }
+        }*/
         super.onBackPressed()
     }
 }
