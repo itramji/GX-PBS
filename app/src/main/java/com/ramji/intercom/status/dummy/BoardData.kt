@@ -1,3 +1,5 @@
 package com.ramji.intercom.status.dummy
 
-data class BoardData(val state: Int)
+import java.text.FieldPosition
+
+data class BoardData(val name: String, var state: Int, val position: Int=0)

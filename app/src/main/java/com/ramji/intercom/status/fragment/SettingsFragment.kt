@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.ramji.intercom.status.IPAddressValidator
 import com.ramji.intercom.status.R
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlin.properties.Delegates
@@ -21,7 +22,7 @@ class SettingsFragment : Fragment() {
 
     var selectedPosition = 0
 
-    private val items = arrayOf("4/48","4/64","4/80","4/96","8/48","8/64", "8/80", "8/96")
+    private val items = arrayOf("4/48", "4/64", "4/80", "4/96", "8/48", "8/64", "8/80", "8/96")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,24 +48,24 @@ class SettingsFragment : Fragment() {
                     }.show()
         }
 
-       /* mobile_number.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                mobile_number.viewTreeObserver.removeOnPreDrawListener(this)
-                mobile_number.setText(PreferenceManager.getDefaultSharedPreferences(requireContext()).getString("MobileNumber", "9894008739"))
-                mobile_number.setSelection(10)
-                return false
-            }
-        })
+        /* mobile_number.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+             override fun onPreDraw(): Boolean {
+                 mobile_number.viewTreeObserver.removeOnPreDrawListener(this)
+                 mobile_number.setText(PreferenceManager.getDefaultSharedPreferences(requireContext()).getString("MobileNumber", "9894008739"))
+                 mobile_number.setSelection(10)
+                 return false
+             }
+         })
 
-        mobile_number.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                if (mobile_number.length() < 10) {
-                    Toast.makeText(requireContext(), "Mobile number should be in 10 digit", Toast.LENGTH_SHORT).show()
-                } else {
-                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("MobileNumber", mobile_number.text.toString()).apply()
-                }
-            }
-        }*/
+         mobile_number.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+             if (!hasFocus) {
+                 if (mobile_number.length() < 10) {
+                     Toast.makeText(requireContext(), "Mobile number should be in 10 digit", Toast.LENGTH_SHORT).show()
+                 } else {
+                     PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("MobileNumber", mobile_number.text.toString()).apply()
+                 }
+             }
+         }*/
 
         ip_address_et.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
@@ -76,11 +77,11 @@ class SettingsFragment : Fragment() {
 
         ip_address_et.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                /*if (ip_address_et.length() < 10) {
-                    Toast.makeText(requireContext(), "Mobile number should be in 10 digit", Toast.LENGTH_SHORT).show()
-                } else {*/
+                if (!IPAddressValidator.validate(ip_address_et.text.toString())) {
+                    Toast.makeText(requireContext(), "Please enter valid IpAddress", Toast.LENGTH_SHORT).show()
+                } else {
                     PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("IpAddress", ip_address_et.text.toString()).apply()
-               // }
+                }
             }
         }
 
@@ -106,11 +107,11 @@ class SettingsFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isAdded && !isVisibleToUser) {
-           /* if (mobile_number.length() < 10) {
-                Toast.makeText(requireContext(), "Mobile number should be in 10 digit", Toast.LENGTH_SHORT).show()
-            } else {
-                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("MobileNumber", mobile_number.text.toString()).apply()
-            }*/
+            /* if (mobile_number.length() < 10) {
+                 Toast.makeText(requireContext(), "Mobile number should be in 10 digit", Toast.LENGTH_SHORT).show()
+             } else {
+                 PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString("MobileNumber", mobile_number.text.toString()).apply()
+             }*/
             hideKeyboard()
         }
     }

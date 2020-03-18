@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ramji.intercom.status.R
@@ -17,6 +18,7 @@ import kotlin.random.Random
 
 class BoardFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var boardDataList: ArrayList<BoardData>
+    private lateinit var adapter:BoardAdapter
 
     private var lm: GridLayoutManager? = null
 
@@ -33,7 +35,8 @@ class BoardFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
     }
 
     private fun onItemClick(boardData: BoardData) {
-
+        val name = boardData.name
+        Toast.makeText(context, "$name is selected", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateView() {
@@ -45,8 +48,14 @@ class BoardFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
 
         val spanCount = (config.split("/")[0]).toInt()
 
-        for (x in 1..count) {
-            boardDataList.add(BoardData(Random.nextInt(0, 2)))
+        for (x in 0 until spanCount) {
+            val id = x+1
+            boardDataList.add(BoardData("T$id",0, x))
+        }
+
+        for (x in spanCount until count+spanCount) {
+            val id = (x-spanCount)+1
+            boardDataList.add(BoardData("E$id",0, x))
         }
 
 
@@ -57,7 +66,8 @@ class BoardFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
             lm?.spanCount = spanCount
         }
 
-        recyclerView.adapter = BoardAdapter(if (spanCount == 4) 16f else 12f, boardDataList, ::onItemClick)
+        adapter = BoardAdapter(if (spanCount == 4) 16f else 12f, boardDataList, ::onItemClick)
+        recyclerView.adapter = adapter
 
 
     }
@@ -65,6 +75,17 @@ class BoardFragment : Fragment(), SharedPreferences.OnSharedPreferenceChangeList
     override fun onSharedPreferenceChanged(p0: SharedPreferences?, key: String?) {
         if (key == "Config") {
             updateView()
+        }else if (key=="serverData"){
+            val data = PreferenceManager.getDefaultSharedPreferences(context).getString("serverData", "%E0011$")
+
+            val EorT = data[1].toString()
+            val pos = data.subSequence(2,5).toString().toInt()
+            if(adapter!=null){
+                val boardData = boardDataList.single { it.name == EorT+pos }
+                boardData.state =  data[5].toString().toInt()
+
+                adapter.updateView(boardData, boardData.position)
+            }
         }
     }
 
